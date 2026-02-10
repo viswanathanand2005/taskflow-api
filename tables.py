@@ -7,7 +7,7 @@ from connection import Base
 class User(Base):
     __tablename__ = 'users'
 
-    id = Column(BigInteger,primary_key=True,index=True,autoincrement=True)
+    id = Column(BigInteger,primary_key=True,autoincrement=True)
     name = Column(String(50),nullable=False)
     email = Column(String(100),nullable=False,unique=True)
     password_hash = Column(VARCHAR(255),nullable=False)
@@ -17,7 +17,7 @@ class User(Base):
 class Task(Base):
     __tablename__ = 'tasks'
 
-    id = Column(BigInteger,primary_key=True,index=True,autoincrement=True)
+    id = Column(BigInteger,primary_key=True,autoincrement=True)
     user_id = Column(BigInteger,ForeignKey('users.id',ondelete='CASCADE'),nullable=False)
     title = Column(VARCHAR(75),nullable=False)
     description = Column(TEXT)
@@ -32,6 +32,7 @@ class Tag(Base):
     __tablename__ = 'tags'
 
     id = Column(BigInteger,primary_key=True,index=True,autoincrement=True)
+    task_id = Column(BigInteger,ForeignKey('tasks.id',ondelete='CASCADE'),nullable=False)
     name = Column(VARCHAR(100),unique=True,nullable=False)
     created_at = Column(TIMESTAMP(timezone=True),server_default=text('CURRENT_TIMESTAMP'))
 
