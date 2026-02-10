@@ -1,12 +1,22 @@
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 from dotenv import load_dotenv
 import os
 import uvicorn
+
 
 from routers import user,task,tag,auth
 app = FastAPI(title='Creating a CRUD API with authentication')
 
 load_dotenv()
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins = ["*"],
+    allow_methods = ["*"],
+    allow_headers = ["*"],
+    allow_credentials = True
+)
 
 @app.get('/api')
 def greet():
